@@ -15,7 +15,7 @@ def load_key():
 #ask user for a master password
 master_pwd = input("What is the master password?")
 
-key = load_key() + master_pwd.bytes
+key = load_key() + master_pwd.encode()
 fer = Fernet(key)
 
 #function for view mode 
@@ -37,7 +37,7 @@ def add():
 
     #file for password storing in append mode
     with open('passwords.txt', 'a') as f:
-        f.write(name + "|" + pwd + "\n")
+        f.write(name + "|" + str(fer.encrypt(pwd.encode())) + "\n")
 
 while True:
     #ask user if they want to list passwords or add a password
