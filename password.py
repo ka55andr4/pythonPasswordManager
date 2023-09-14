@@ -7,15 +7,14 @@ def write_key():
         key_file.write(key) '''
 
 def load_key():
-    file = open("key.key", "rb").read()
+    file = open("key.key", "rb")
     key = file.read()
-    file.close
+    file.close()
     return key
 
 #ask user for a master password
-master_pwd = input("What is the master password?")
 
-key = load_key() + master_pwd.encode()
+key = load_key() 
 fer = Fernet(key)
 
 #function for view mode 
@@ -25,7 +24,8 @@ def view():
          for line in f.readlines():
             data = line.rstrip()
             user, passw = data.split("|")
-            print("User:", user, "| Password:", passw)
+            print("User:", user, "| Password:", 
+                  fer.decrypt(passw.encode()).decode())
         
              
         
@@ -37,7 +37,7 @@ def add():
 
     #file for password storing in append mode
     with open('passwords.txt', 'a') as f:
-        f.write(name + "|" + str(fer.encrypt(pwd.encode())) + "\n")
+        f.write(name + "|" + fer.encrypt(pwd.encode()).decode() + "\n")
 
 while True:
     #ask user if they want to list passwords or add a password
