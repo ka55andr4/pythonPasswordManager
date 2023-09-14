@@ -6,7 +6,9 @@ def view():
      #opens file and reads it
      with open('passwords.txt', 'r') as f:
          for line in f.readlines():
-             print(line)
+            data = line.rstrip()
+            user, passw = data.split("|")
+        
              
         
 #function for add mode 
